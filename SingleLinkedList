@@ -1,0 +1,178 @@
+class Node{
+    int data;
+    Node next = null;
+}
+class LinkedList{
+    Node head;
+    public void print(){
+        Node currNode = this.head;
+        while(currNode!= null){
+            System.out.print(currNode.data+" -> ");
+            currNode = currNode.next;
+        }
+        System.out.print("Null");
+    }
+    public void insertFirst(int data){
+        Node nn = new Node();
+        nn.data = data;
+        nn.next = this.head;
+        this.head = nn;
+    }
+    public void deleteFirst() {
+        if (this.head == null) {
+            System.out.println("The list is empty");
+        } else {
+            this.head = (this.head).next;
+            (this.head).next = null;
+        }
+    }
+    public void insertLast(int data){
+        Node nn = new Node();
+        if(this.head == null){
+            (this.head).data = data;
+        }
+        else{
+            Node currNode = this.head;
+            while(currNode.next != null){
+                currNode = currNode.next;
+            }
+            currNode.next = nn;
+            nn.data =data;
+            nn.next = null;
+        }
+    }
+    public void deleteLast(){
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            Node currNode = this.head;
+            while ((currNode.next).next != null){
+                currNode = currNode.next;
+            }
+            currNode.next = null;
+        }
+    }
+    public void insertPos(int data, int pos){
+        Node nn = new Node();
+        if(this.head == null){
+            this.head = nn;
+        }
+        else{
+            Node currNode = this.head;
+            int i = 0;
+            while(i < pos-1){
+                currNode = currNode.next;
+            }
+            nn.next = currNode.next;
+            currNode.next = nn;
+            nn.data = data;
+        }
+    }
+    public void deletePosition(int pos){
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            if(pos<0){
+                System.out.println("Invalid position");
+            }
+            Node currNode = this.head;
+            int i=0;
+            while (i< pos-1){
+                currNode = currNode.next;
+            }
+            //currNode.next = null;
+            currNode.next = (currNode.next).next;
+        }
+    }
+    public void reverse(){
+        Node currNode = this.head;
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            while (currNode.next != null){
+                currNode = currNode.next;
+            }
+            Node temp = this.head;
+            this.head = currNode;
+            currNode.next = temp;
+            temp.next = null;
+        }
+    }
+    public int getMax(){
+        Node currNode = this.head;
+        int max = currNode.data;
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            while((currNode.next).next != null){
+                currNode = currNode.next;
+                if((currNode.next).data > currNode.data){
+                    max = (currNode.next).data;
+                }
+            }
+        }
+        return max;
+    }
+    public int getMin(){
+        Node currNode = this.head;
+        int min = currNode.data;
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            while((currNode.next) != null){
+                if(currNode.data > (currNode.next).data){
+                    min = (currNode.next).data;
+                }
+                currNode = currNode.next;
+            }
+        }
+        return min;
+    }
+    public void search(int data){
+        if(this.head == null){
+            System.out.println("List is empty");
+        }
+        else{
+            Node currNode = this.head;
+            int index=0;
+            if(currNode.data == data){
+                System.out.println("Data is found at index "+index);
+            }
+            else {
+                while (currNode.next != null) {
+                    index++;
+                    currNode = currNode.next;
+                    if (currNode.data == data) {
+                        System.out.println("Data is found at index " + index);
+                    }
+                }
+            }
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        LinkedList ll = new LinkedList();
+        ll.insertFirst(2);
+        ll.insertFirst(3);
+        ll.deleteFirst();
+        ll.insertLast(3);
+        ll.deleteLast();
+        ll.insertLast(4);
+        ll.insertPos(3,1);
+        ll.deletePosition(1);
+        ll.reverse();
+        ll.insertLast(6);
+        ll.insertLast(1);
+        ll.print();
+        System.out.println(" ");
+        System.out.println("Max = "+ll.getMax());
+        System.out.println("Min = "+ll.getMin());
+        ll.search(6);
+    }
+}
